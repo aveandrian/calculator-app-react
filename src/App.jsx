@@ -1,15 +1,35 @@
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-
+  const [selectedTheme, setSelectedTheme] = useState(0)
+  function selectTheme(){
+    setSelectedTheme(prev => prev == 2 ? 0 : prev+1)
+  }
+  const activeStyle = {
+    left: `${selectedTheme* 50}%`, 
+    transform: `translateX(-${selectedTheme* 50}%`
+  }
+  
   return (
     <>
       <main>
         <section className='header'>
-          <img className='logo' />
-         
+          <p className='title'>calc</p>
           <div className='theme-choose-container'>
-            
+              <div className='theme-choose-wrapper'>
+                <div className='theme-choose-numbers'>
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                </div>
+                <div className='theme-choose-slider-wrapper'>
+                  <p className='theme-selector-title'>THEME</p>
+                  <div className='slider' onClick={selectTheme}>
+                    <div className='slider-circle' style={activeStyle}></div>
+                  </div>
+                </div>
+              </div>
           </div>
         </section>
         <section className='result'>
@@ -37,7 +57,7 @@ function App() {
         </section>
       </main>
 
-      <footer class="attribution">
+      <footer className="attribution">
         Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
         Coded by <a href="https://github.com/aveandrian">aveandrian</a>.
       </footer>
