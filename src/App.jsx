@@ -9,19 +9,28 @@ function App() {
   const [stack, setStack] = useState([])
   const ops = ['/', '*', "+", "-"]
 
-
   useEffect(() => {
-    const handleColorSchemeChange = (e) => {
-      setSelectedTheme(e.matches ? 2 : 0);
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const lightModeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    
+    const handleColorSchemeChange = () => {
+      if (darkModeMediaQuery.matches) {
+        return setSelectedTheme(2)
+      } else if (lightModeMediaQuery.matches) {
+        return setSelectedTheme(1)
+      } else {
+        return
+      }
     };
+  
+    darkModeMediaQuery.addEventListener('change', handleColorSchemeChange);
+    lightModeMediaQuery.addEventListener('change', handleColorSchemeChange);
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    handleColorSchemeChange(mediaQuery); // Set initial color scheme
-
-    mediaQuery.addEventListener('change', handleColorSchemeChange);
-
+    handleColorSchemeChange();
+  
     return () => {
-      mediaQuery.removeEventListener('change', handleColorSchemeChange);
+      darkModeMediaQuery.removeEventListener('change', handleColorSchemeChange);
+      lightModeMediaQuery.removeEventListener('change', handleColorSchemeChange);
     };
   }, []);
 
