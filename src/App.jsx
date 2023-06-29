@@ -1,8 +1,62 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
   const [selectedTheme, setSelectedTheme] = useState(0)
+  const [input, setInput] = useState('')
+  const [sum, setSum] = useState(null)
+  const [result, setResult] = useState()
+  const [stack, setStack] = useState([])
+  const ops = ['/', '*', "+", "-"]
+
+  useEffect(()=>{
+    if(stack[stack.length-1] == '='){
+      let sum = stack.join('').replaceAll(',','.');
+      setSum(eval(sum.substring(0,sum.length-1)))
+      setResult(eval(sum.substring(0,sum.length-1)))
+    }
+  }, [stack])
+
+  useEffect(()=>{
+    if(result)
+      setStack([result])
+  },[result])
+  
+
+  function handleClick(e){
+    setSum(null)
+    if(stack.length==1)
+      setStack([])
+    setInput(prev => prev + e.target.getAttribute('name'))
+  }
+
+  function handleClickOperation(e){
+    setSum(null)  
+    if(stack.length < 2 && e.target.getAttribute('name') == '=')
+      return
+    if(input == '' && ops.includes(stack.at(stack.length-1))){
+      setStack(prev => {
+        prev.pop()
+        prev.push(e.target.getAttribute('name'))
+        return  [...prev]
+      })
+      return
+    }
+    setStack(prev => [...prev, input, e.target.getAttribute('name')])
+    setInput('')
+  }
+
+  function deleteSymbol(){
+    setInput(prev => prev.substring(0,prev.length-1))
+  }
+
+  function reset(){
+    setInput('')
+    setStack([])
+    setResult(null)
+    setSum(null)
+  }
+
   function selectTheme(){
     setSelectedTheme(prev => prev == 2 ? 0 : prev+1)
   }
@@ -12,8 +66,8 @@ function App() {
   }
   
   return (
-    <>
-      <main>
+    <main>
+      <div className='main-wrapper'>
         <section className='header'>
           <p className='title'>calc</p>
           <div className='theme-choose-container'>
@@ -33,35 +87,72 @@ function App() {
           </div>
         </section>
         <section className='result'>
-
+            <p className='result-text'>{sum ? sum : input}</p>
         </section>
         <section className='calc-grid'>
-            <div className='calc-number'>7</div>
-            <div className='calc-number'>8</div>
-            <div className='calc-number'>9</div>
-            <div className='calc-del'>DEL</div>
-            <div className='calc-number'>4</div>
-            <div className='calc-number'>5</div>
-            <div className='calc-number'>6</div>
-            <div className='calc-sum'>+</div>
-            <div className='calc-number'>1</div>
-            <div className='calc-number'>2</div>
-            <div className='calc-number'>3</div>
-            <div className='calc-minus'>-</div>
-            <div className='calc-dot'>.</div>
-            <div className='calc-number'>0</div>
-            <div className='calc-divide'>/</div>
-            <div className='calc-multiply'>X</div>
-            <div className='calc-reset'>RESET</div>
-            <div className='calc-equal'>=</div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='7' onClick={handleClick}>7</div>
+            </div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='8' onClick={handleClick}>8</div>
+            </div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='9' onClick={handleClick}>9</div>
+            </div>
+            <div className='calc-del calc-item' >
+              <div className='calc-item-text' onClick={deleteSymbol}>DEL</div>
+            </div>
+            <div className='calc-number calc-item'  >
+              <div className='calc-item-text' name='4' onClick={handleClick}>4</div>
+            </div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='5' onClick={handleClick}>5</div>
+            </div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='6' onClick={handleClick}>6</div>
+            </div>
+            <div className='calc-sum calc-item' >
+              <div className='calc-item-text' name='+' operation='plus' onClick={handleClickOperation}>+</div>
+            </div>
+            <div className='calc-number calc-item'>
+              <div className='calc-item-text'  name='1' onClick={handleClick}>1</div>
+            </div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='2' onClick={handleClick}>2</div>
+            </div>
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='3' onClick={handleClick}>3</div>
+            </div>
+            <div className='calc-minus calc-item' >
+              <div className='calc-item-text' name='-' operation='minus' onClick={handleClickOperation}>-</div>
+            </div>
+            <div className='calc-dot calc-item'>
+              <div className='calc-item-text'  name=',' onClick={handleClick}>.</div>
+            </div>
+
+            <div className='calc-number calc-item' >
+              <div className='calc-item-text' name='0' onClick={handleClick}>0</div>
+            </div>
+            <div className='calc-divide calc-item' >
+              <div className='calc-item-text' name='/' operation='divide' onClick={handleClickOperation}>/</div>
+            </div>
+            <div className='calc-multiply calc-item' >
+              <div className='calc-item-text' name='*' operation='multiply' onClick={handleClickOperation}>x</div>
+            </div>
+            <div className='calc-reset calc-item' >
+              <div className='calc-item-text' onClick={reset}>RESET</div>
+            </div>
+            <div className='calc-equal calc-item' >
+              <div className='calc-item-text' name='=' operation='equal' onClick={handleClickOperation} >=</div>
+            </div>
         </section>
-      </main>
+      </div>
 
       <footer className="attribution">
         Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
         Coded by <a href="https://github.com/aveandrian">aveandrian</a>.
       </footer>
-    </>
+    </main>
   )
 }
 

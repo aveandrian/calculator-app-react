@@ -12,14 +12,34 @@ body {
   justify-content: center;
 }
 
+#root {
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 main {
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: aquamarine;
+}
+
+.main-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
   height: fit-content;
-  max-width: 700px;
+  max-width: 500px;
 }
 
 .header {
@@ -85,9 +105,32 @@ main {
   width: 100%;
   border: 1px solid black;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 50px;
+  overflow: hidden;
 }
 
-.calc-grid div {
+.result-text {
+  font-size: 3rem;
+}
+
+.calc-grid {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr)
+}
+
+.calc-item {
+  position: relative;
+  z-index: 1;
+}
+
+.calc-item-text {
   font-size: 2rem;
   font-weight: 700; 
   border: 1px solid black;
@@ -96,17 +139,24 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-block: 10px;
+  padding-block: 20px;
   border-radius: 10px;
+  position: relative;
+  background-color: antiquewhite;
+
 }
 
-.calc-grid {
-  border: 1px solid black;
+.calc-item-text::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
-  padding: 10px;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(4, 1fr)
+  border: 1px solid black;
+  background-color: red;
 }
 
 .calc-reset {
@@ -117,5 +167,6 @@ main {
 }
 
 .attribution, .attribution a {
+  margin-top: 2vh;
   font-size: 0.8rem;
 }
