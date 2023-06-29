@@ -115,10 +115,10 @@ main {
 .main-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
   width: 100%;
   height: fit-content;
-  max-width: 500px;
+  max-width: 31.25rem;
 }
 
 .header {
@@ -135,20 +135,20 @@ main {
 .theme-choose-container {
   display: flex;
   align-items: flex-end;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .theme-choose-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .theme-choose-numbers {
   display: flex;
   justify-content: flex-end;
-  gap: 25px;
-  padding-inline: 10px;  
+  gap: 1.563rem;
+  padding-inline: 0.625rem;  
 }
 
 .theme-choose-numbers-item {
@@ -158,7 +158,7 @@ main {
 .theme-choose-slider-wrapper {
    display: flex;
    align-items: center;
-   gap: 10px
+   gap: 0.625rem
 }
 
 .theme-selector-title {
@@ -170,17 +170,17 @@ main {
   background: var(--toggle-background);
   display: flex;
   align-items: center;
-  width: 90px;
-  height: 30px;
-  padding: 5px;
-  border-radius: 30px;
+  width: 5.625rem;
+  height: 1.875rem;
+  padding: 0.313rem;
+  border-radius: 1.875rem;
 }
 
 .slider-circle {
   position: relative;
   transition: 0.3s ease-in-out;
-  height: 15px;
-  width: 15px;
+  height: 0.938rem;
+  width: 0.938rem;
   border-radius: 50%;
   background: var(--toggle);
 }
@@ -190,14 +190,14 @@ main {
 }
 
 .result {
-  height: 100px;
+  height: 6.25rem;
   width: 100%;
   background-color: var(--screen-background);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 50px;
+  padding-right: 3.125rem;
   overflow: hidden;
 }
 
@@ -208,10 +208,10 @@ main {
 
 .calc-grid {
   background: var(--keypad-background);
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 0.625rem;
+  padding: 1.25rem;
   display: grid;
-  gap: 20px;
+  gap: 1.25rem;
   grid-template-columns: repeat(4, 1fr)
 }
 
@@ -229,8 +229,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-block: 20px;
-  border-radius: 10px;
+  padding-block: 1.25rem;
+  border-radius: 0.625rem;
   position: relative;
   color: var(--text-color);
 }
@@ -239,11 +239,11 @@ main {
   z-index: -1;
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: -0.25rem;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: var(--key-primary-shadow);
 }
 
@@ -297,14 +297,14 @@ main {
   color: var(--title-color)
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 34.375rem) {
   * {
     font-size: 0.8rem;
   }
   main {
-    padding: 20px;
+    padding: 1.25rem;
   }
   .calc-item-text {
-    padding-block: 10px;
+    padding-block: 0.625rem;
   }
 }
