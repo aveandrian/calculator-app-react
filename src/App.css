@@ -5,6 +5,85 @@
   font-family: 'League Spartan', sans-serif;
 }
 
+[data-theme='theme-0'] {
+  --main-background: hsl(222, 26%, 31%);
+  --keypad-background: hsl(223, 31%, 20%);
+  --screen-background: hsl(224, 36%, 15%);
+
+  --key-primary-background: hsl(30, 25%, 89%);
+  --key-primary-shadow: hsl(28, 16%, 65%); 
+  --key-primary-hover-background: white;
+
+  --key-secondary-background: hsl(225, 21%, 49%);
+  --key-secondary-shadow: hsl(224, 28%, 35%);
+  --key-secondary-color: white;
+  --key-secondary-hover-backgorund: rgb(162, 179, 225);
+  
+  --equal-background: hsl(6, 63%, 50%);
+  --equal-color: white;
+  --equal-shadow: hsl(6, 70%, 34%);
+  --equal-hover-backgorund: rgb(249, 108, 91);
+  
+  --toggle: hsl(6, 63%, 50%);
+  --toggle-background:   hsl(223, 31%, 20%);
+   
+  --text-color: hsl(221, 14%, 31%);
+  --title-color: white;
+}
+
+[data-theme='theme-1'] {
+  --main-background: hsl(0, 0%, 90%);
+  --keypad-background: hsl(0, 5%, 81%);
+  --screen-background: hsl(0, 0%, 93%);
+
+  --key-primary-background: hsl(45, 7%, 89%);
+  --key-primary-shadow: hsl(35, 11%, 61%);  
+  --key-primary-hover-background: white;
+  
+  --key-secondary-background: hsl(185, 42%, 37%);
+  --key-secondary-shadow: hsl(185, 58%, 25%);
+  --key-secondary-color: white;
+  --key-secondary-hover-backgorund: rgb(98, 181, 189);
+  
+  --equal-background: hsl(25, 98%, 40%);
+  --equal-shadow:  hsl(25, 99%, 27%);
+  --equal-color: white;
+  --equal-hover-backgorund: rgb(255, 139, 56);
+
+  --toggle-background:  hsl(0, 5%, 81%);
+  --toggle: hsl(25, 98%, 40%);
+  
+  --text-color: hsl(60, 10%, 19%);
+  --title-color: hsl(60, 10%, 19%);
+}
+
+[data-theme='theme-2'] {
+  --main-background:  hsl(268, 75%, 9%);
+
+  --keypad-background: hsl(268, 71%, 12%);
+  --screen-background: hsl(268, 71%, 12%);
+  
+  --key-primary-background: hsl(268, 47%, 21%);
+  --key-primary-shadow: hsl(290, 70%, 36%); 
+  --key-primary-hover-background: rgb(107, 52, 172);
+
+  --key-secondary-background: hsl(281, 89%, 26%);
+  --key-secondary-shadow: rgb(163, 73, 164);
+  --key-secondary-color: white;
+  --key-secondary-hover-backgorund: rgb(134, 49, 176);
+
+  --equal-background: hsl(176, 100%, 44%);
+  --equal-shadow:  hsl(177, 92%, 70%);
+  --equal-color: hsl(198, 20%, 13%);
+  --equal-hover-backgorund: rgb(148, 255, 249);
+
+  --toggle: hsl(176, 100%, 44%);
+  --toggle-background:  hsl(268, 71%, 12%);
+  
+  --text-color: hsl(52, 100%, 62%);
+  --title-color: hsl(52, 100%, 62%);
+}
+
 body {
   min-height: 100vh;
   display: flex;
@@ -30,7 +109,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: aquamarine;
+  background-color: var(--main-background);
 }
 
 .main-wrapper {
@@ -50,6 +129,7 @@ main {
 
 .title {
   font-size: 2rem;
+  color: var(--title-color)
 }
 
 .theme-choose-container {
@@ -71,6 +151,10 @@ main {
   padding-inline: 10px;  
 }
 
+.theme-choose-numbers-item {
+  color: var(--title-color)
+}
+
 .theme-choose-slider-wrapper {
    display: flex;
    align-items: center;
@@ -79,10 +163,11 @@ main {
 
 .theme-selector-title {
   font-size: 0.8rem;
+  color: var(--title-color)
 }
 
 .slider {
-  border: 1px solid black;
+  background: var(--toggle-background);
   display: flex;
   align-items: center;
   width: 90px;
@@ -97,13 +182,17 @@ main {
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  border: 1px solid black
+  background: var(--toggle);
+}
+
+.slider:hover, .slider-circle:hover {
+  cursor: pointer;
 }
 
 .result {
   height: 100px;
   width: 100%;
-  border: 1px solid black;
+  background-color: var(--screen-background);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -113,11 +202,12 @@ main {
 }
 
 .result-text {
+  color: var(--title-color);
   font-size: 3rem;
 }
 
 .calc-grid {
-  border: 1px solid black;
+  background: var(--keypad-background);
   border-radius: 10px;
   padding: 20px;
   display: grid;
@@ -133,7 +223,7 @@ main {
 .calc-item-text {
   font-size: 2rem;
   font-weight: 700; 
-  border: 1px solid black;
+  background: var(--key-primary-background);
   width: 100%;
   height: 100%;
   display: flex;
@@ -142,8 +232,7 @@ main {
   padding-block: 20px;
   border-radius: 10px;
   position: relative;
-  background-color: antiquewhite;
-
+  color: var(--text-color);
 }
 
 .calc-item-text::before {
@@ -155,18 +244,67 @@ main {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  border: 1px solid black;
-  background-color: red;
+  background: var(--key-primary-shadow);
+}
+
+
+.calc-item-text:hover {
+  cursor: pointer;
+  background: var(--key-primary-hover-background);
 }
 
 .calc-reset {
   grid-column: 1 / span 2;
 }
+.calc-reset-item {
+  background: var(--key-secondary-background);
+  color: var(--key-secondary-color)
+}
+.calc-reset-item::before {
+  background: var(--key-secondary-shadow);
+}
+
+.calc-del-item {
+  background: var(--key-secondary-background);
+  color: var(--key-secondary-color)
+}
+.calc-del-item::before {
+  background: var(--key-secondary-shadow);
+  color: var(--key-secondary-color)
+}
+
+.calc-reset-item:hover, .calc-del-item:hover {
+  background-color: var(--key-secondary-hover-backgorund);
+}
+
 .calc-equal {
   grid-column: 3 / span 2;
+}
+.calc-equal-item {
+  background: var(--equal-background);
+  color: var(--equal-color)
+}
+.calc-equal-item::before{
+  background: var(--equal-shadow);
+}
+.calc-equal-item:hover {
+  background-color: var(--equal-hover-backgorund);
 }
 
 .attribution, .attribution a {
   margin-top: 2vh;
   font-size: 0.8rem;
+  color: var(--title-color)
+}
+
+@media screen and (max-width: 550px) {
+  * {
+    font-size: 0.8rem;
+  }
+  main {
+    padding: 20px;
+  }
+  .calc-item-text {
+    padding-block: 10px;
+  }
 }

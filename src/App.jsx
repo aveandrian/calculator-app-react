@@ -9,11 +9,31 @@ function App() {
   const [stack, setStack] = useState([])
   const ops = ['/', '*', "+", "-"]
 
+
+  useEffect(() => {
+    const handleColorSchemeChange = (e) => {
+      setSelectedTheme(e.matches ? 2 : 0);
+    };
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    handleColorSchemeChange(mediaQuery); // Set initial color scheme
+
+    mediaQuery.addEventListener('change', handleColorSchemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleColorSchemeChange);
+    };
+  }, []);
+
+
   useEffect(()=>{
     if(stack[stack.length-1] == '='){
       let sum = stack.join('').replaceAll(',','.');
-      setSum(eval(sum.substring(0,sum.length-1)))
-      setResult(eval(sum.substring(0,sum.length-1)))
+      let res = eval(sum.substring(0,sum.length-1)).toString()
+      if (res.length > 12)
+        res = res.substring(0, 12)
+      setSum(res)
+      setResult(res)
     }
   }, [stack])
 
@@ -66,16 +86,16 @@ function App() {
   }
   
   return (
-    <main>
+    <main data-theme={`theme-${selectedTheme}`}>
       <div className='main-wrapper'>
         <section className='header'>
           <p className='title'>calc</p>
           <div className='theme-choose-container'>
               <div className='theme-choose-wrapper'>
                 <div className='theme-choose-numbers'>
-                  <p>1</p>
-                  <p>2</p>
-                  <p>3</p>
+                  <p className='theme-choose-numbers-item'>1</p>
+                  <p className='theme-choose-numbers-item'>2</p>
+                  <p className='theme-choose-numbers-item'>3</p>
                 </div>
                 <div className='theme-choose-slider-wrapper'>
                   <p className='theme-selector-title'>THEME</p>
@@ -100,7 +120,7 @@ function App() {
               <div className='calc-item-text' name='9' onClick={handleClick}>9</div>
             </div>
             <div className='calc-del calc-item' >
-              <div className='calc-item-text' onClick={deleteSymbol}>DEL</div>
+              <div className='calc-del-item calc-item-text' onClick={deleteSymbol}>DEL</div>
             </div>
             <div className='calc-number calc-item'  >
               <div className='calc-item-text' name='4' onClick={handleClick}>4</div>
@@ -140,10 +160,10 @@ function App() {
               <div className='calc-item-text' name='*' operation='multiply' onClick={handleClickOperation}>x</div>
             </div>
             <div className='calc-reset calc-item' >
-              <div className='calc-item-text' onClick={reset}>RESET</div>
+              <div className='calc-reset-item calc-item-text' onClick={reset}>RESET</div>
             </div>
             <div className='calc-equal calc-item' >
-              <div className='calc-item-text' name='=' operation='equal' onClick={handleClickOperation} >=</div>
+              <div className='calc-equal-item calc-item-text' name='=' operation='equal' onClick={handleClickOperation} >=</div>
             </div>
         </section>
       </div>
