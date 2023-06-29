@@ -25,7 +25,6 @@ function App() {
   }, []);
 
   useEffect(()=>{
-    console.log("selected theme in effect", selectedTheme)
     if(selectedTheme !== null)
       window.localStorage.setItem('theme', selectedTheme)
   },[selectedTheme])
