@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [selectedTheme, setSelectedTheme] = useState(0)
+  const [selectedTheme, setSelectedTheme] = useState(null)
   const [input, setInput] = useState('')
   const [sum, setSum] = useState(null)
   const [result, setResult] = useState()
@@ -10,30 +10,25 @@ function App() {
   const ops = ['/', '*', "+", "-"]
 
   useEffect(() => {
+    let savedTheme = window.localStorage.getItem('theme')
+    if(savedTheme != null)
+      return setSelectedTheme(savedTheme)
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const lightModeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-    
-    const handleColorSchemeChange = () => {
-      if (darkModeMediaQuery.matches) {
-        return setSelectedTheme(2)
-      } else if (lightModeMediaQuery.matches) {
-        return setSelectedTheme(1)
-      } else {
-        return
-      }
-    };
-  
-    darkModeMediaQuery.addEventListener('change', handleColorSchemeChange);
-    lightModeMediaQuery.addEventListener('change', handleColorSchemeChange);
-
-    handleColorSchemeChange();
-  
-    return () => {
-      darkModeMediaQuery.removeEventListener('change', handleColorSchemeChange);
-      lightModeMediaQuery.removeEventListener('change', handleColorSchemeChange);
-    };
+    if (darkModeMediaQuery.matches) {
+      return setSelectedTheme(2)
+    } else if (lightModeMediaQuery.matches) {
+      return setSelectedTheme(1)
+    } else {
+      return setSelectedTheme(0)
+    }
   }, []);
 
+  useEffect(()=>{
+    console.log("selected theme in effect", selectedTheme)
+    if(selectedTheme !== null)
+      window.localStorage.setItem('theme', selectedTheme)
+  },[selectedTheme])
 
   useEffect(()=>{
     if(stack[stack.length-1] == '='){
@@ -87,8 +82,9 @@ function App() {
   }
 
   function selectTheme(){
-    setSelectedTheme(prev => prev == 2 ? 0 : prev+1)
+    setSelectedTheme(prev => prev == 2 ? 0 : parseInt(prev+1))
   }
+
   const activeStyle = {
     left: `${selectedTheme* 50}%`, 
     transform: `translateX(-${selectedTheme* 50}%`
