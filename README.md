@@ -21,4 +21,4 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![image](https://github.com/aveandrian/calculator-app-react/assets/13519212/aff56f31-79ea-46dc-a909-a7753025e393)
